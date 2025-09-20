@@ -13,11 +13,14 @@ const Navigation = () => {
           <div className="hidden md:flex items-center space-x-8">
             <a href="#services" className="text-muted-foreground hover:text-primary transition-colors">Services</a>
             <a href="#features" className="text-muted-foreground hover:text-primary transition-colors">Features</a>
-            <a href="#portfolio" className="text-muted-foreground hover:text-primary transition-colors">Portfolio</a>
             <a href="#contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</a>
           </div>
           
-          <Button variant="default" className="bg-primary text-primary-foreground hover:bg-primary/90 pulse-glow">
+          <Button 
+            variant="default" 
+            className="bg-primary text-primary-foreground hover:bg-primary/90 pulse-glow"
+            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+          >
             Get Started
           </Button>
         </div>

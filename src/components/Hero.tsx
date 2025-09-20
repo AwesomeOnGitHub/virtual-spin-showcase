@@ -22,6 +22,7 @@ const Hero = () => {
               <Button 
                 size="lg" 
                 className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-8 py-4 pulse-glow"
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Start Your Tour
               </Button>
@@ -29,8 +30,9 @@ const Hero = () => {
                 variant="outline" 
                 size="lg"
                 className="text-lg px-8 py-4 border-primary text-primary hover:bg-primary/10"
+                onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
               >
-                View Examples
+                View Services
               </Button>
             </div>
           </div>

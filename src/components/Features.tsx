@@ -1,4 +1,5 @@
 import beforeAfterImage from "@/assets/before-after.jpg";
+import { Button } from "@/components/ui/button";
 
 const Features = () => {
   const stats = [
@@ -94,12 +95,21 @@ const Features = () => {
             Join hundreds of businesses already using VirtualSpin to showcase their spaces
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-all">
+            <Button 
+              className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3"
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               Get Your Quote
-            </button>
-            <button className="border border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary/10 transition-all">
+            </Button>
+            <Button 
+              variant="outline"
+              className="border-primary text-primary hover:bg-primary/10 px-8 py-3"
+              onClick={() => {
+                window.open('https://calendly.com/your-calendar-link', '_blank');
+              }}
+            >
               Schedule Demo
-            </button>
+            </Button>
           </div>
         </div>
       </div>
