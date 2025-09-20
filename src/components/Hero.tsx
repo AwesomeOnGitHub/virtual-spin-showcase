@@ -21,12 +21,7 @@ const Hero = () => {
               Professional 360° tours and photography for websites and Google Maps.
             </p>
 
-       <div style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <h1>My 360° Image Viewer (TypeScript)</h1>
-      <div style={{ width: '80%', height: '80%', background: '#1a1a1a' }}> {/* Give the viewer a defined size */}
-        <ThreeSixtyViewer imageUrl={panoramicImage} />
-      </div>
-    </div>
+
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
               <Button
