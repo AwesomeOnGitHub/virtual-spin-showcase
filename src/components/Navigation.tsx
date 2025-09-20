@@ -6,7 +6,7 @@ const Navigation = () => {
       <div className="container-width">
         <div className="flex items-center justify-between h-16 md:h-20">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-primary to-secondary pulse-glow"></div>
+            <img src='logo.png' alt="Logo" className="w-14 h-14 mr-2"/>
             <span className="text-xl md:text-2xl font-bold text-foreground">VirtualSpin</span>
           </div>
           
