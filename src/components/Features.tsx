@@ -72,7 +72,7 @@ const Features = () => {
           <div className="relative">
             <div className="rounded-2xl overflow-hidden hover-lift">
               <img
-                src={beforeAfterImage}
+                src="before.png"
                 alt="Before and After Virtual Tour Comparison"
                 className="w-full h-auto rounded-2xl"
               />
@@ -82,13 +82,18 @@ const Features = () => {
               <p className="text-white font-medium text-center">
                 See the difference immersive technology makes
               </p>
-            </div>
-            <div className="rounded-2xl overflow-hidden hover-lift">
-              <img
-                src={beforeAfterImage}
-                alt="Before and After Virtual Tour Comparison"
-                className="w-full h-auto rounded-2xl"
-              />
+
+              <div className="w-full md:w-[100%] h-[25vh] md:h-[60vh]">
+                <iframe
+                  src="https://storage.net-fs.com/hosting/2727323/5/index.htm"
+                  width="100%"
+                  height="100%"
+                  allowFullScreen
+                  frameBorder="0"
+                  className="border-none"
+                  title="3DVista Virtual Tour"
+                />
+              </div>
             </div>
           </div>
         </div>

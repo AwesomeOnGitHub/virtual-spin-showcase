@@ -25,7 +25,7 @@ const Hero = () => {
           className="border-none"
           title="3DVista Virtual Tour"
         />
-      </div>
+      </div>  
     </section>
 
   )
