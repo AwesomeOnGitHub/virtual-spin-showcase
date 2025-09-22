@@ -22,7 +22,7 @@ const Contact = () => {
       title: "Message Sent!",
       description: "We'll get back to you within 24 hours.",
     });
-    
+
     setFormData({
       name: '',
       email: '',
@@ -40,23 +40,15 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="section-padding bg-gradient-to-b from-muted/20 to-background">
-      <div className="container-width">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            <span className="hero-gradient-text">Get Started Today</span>
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Ready to transform your business with immersive virtual tours? Contact us for a free consultation.
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-16">
+    <section className="section-padding pt-32 md:pt-40 overflow-hidden">
+      <div className="container-width mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8">
           {/* Contact Form */}
-          <div className="glass-card rounded-2xl p-8">
-            <h3 className="text-2xl font-bold mb-6 text-foreground">Send us a message</h3>
-            
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="glass-card rounded-2xl p-8 flex flex-col justify-between h-full">
+            <h3 className="text-2xl font-bold mb-6 text-foreground">
+              Send us a message
+            </h3>
+            <form onSubmit={handleSubmit} className="space-y-6 flex-1">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-muted-foreground mb-2 block">
@@ -86,7 +78,6 @@ const Contact = () => {
                   />
                 </div>
               </div>
-              
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium text-muted-foreground mb-2 block">
@@ -98,7 +89,7 @@ const Contact = () => {
                     value={formData.phone}
                     onChange={handleChange}
                     className="bg-background/50 border-border/50 focus:border-primary"
-                    placeholder="+1 (555) 123-4567"
+                    placeholder="Your Number"
                   />
                 </div>
                 <div>
@@ -114,7 +105,6 @@ const Contact = () => {
                   />
                 </div>
               </div>
-              
               <div>
                 <label className="text-sm font-medium text-muted-foreground mb-2 block">
                   Project Details
@@ -125,12 +115,11 @@ const Contact = () => {
                   onChange={handleChange}
                   rows={4}
                   className="bg-background/50 border-border/50 focus:border-primary resize-none"
-                  placeholder="Tell us about your space and what you'd like to achieve with a virtual tour..."
+                  placeholder="Tell us about your specific needs"
                 />
               </div>
-              
-              <Button 
-                type="submit" 
+              <Button
+                type="submit"
                 className="w-full bg-primary text-primary-foreground hover:bg-primary/90 pulse-glow"
                 size="lg"
               >
@@ -139,76 +128,34 @@ const Contact = () => {
             </form>
           </div>
 
-          {/* Contact Info & Calendly */}
-          <div className="space-y-8">
-            {/* Contact Information */}
-            <div className="glass-card rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-6 text-foreground">Contact Information</h3>
-              
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center flex-shrink-0">
-                    <div className="w-6 h-6 bg-white rounded-md"></div>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-1">Email</h4>
-                    <p className="text-muted-foreground">hello@virtualspin.com</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-secondary to-tertiary flex items-center justify-center flex-shrink-0">
-                    <div className="w-6 h-6 bg-white rounded-md"></div>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-1">Phone</h4>
-                    <p className="text-muted-foreground">+1 (555) 123-4567</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-tertiary to-primary flex items-center justify-center flex-shrink-0">
-                    <div className="w-6 h-6 bg-white rounded-md"></div>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-foreground mb-1">Response Time</h4>
-                    <p className="text-muted-foreground">Within 2 hours</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Calendly Integration */}
-            <div className="glass-card rounded-2xl p-8">
-              <h3 className="text-2xl font-bold mb-4 text-foreground">Schedule a Call</h3>
+          {/* Calendly Module */}
+          <div className="glass-card rounded-2xl p-8 flex flex-col justify-between h-full">
+            <div className="flex-1">
+              <h3 className="text-2xl font-bold mb-4 text-foreground">
+                Schedule a Call with Calendly
+              </h3>
               <p className="text-muted-foreground mb-6">
-                Book a free consultation to discuss your virtual tour needs
+                Book a free consultation to discuss your needs
               </p>
-              
-              {/* Calendly Embed - Replace with your actual Calendly URL */}
-              <div className="bg-background/50 rounded-xl p-4 border border-border/50">
-                <div className="text-center py-8">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mx-auto mb-4">
-                    <div className="w-8 h-8 bg-white rounded-md"></div>
-                  </div>
-                  <p className="text-muted-foreground mb-4">
-                    Calendly integration ready
-                  </p>
-                  <Button 
-                    variant="outline"
-                    className="border-primary text-primary hover:bg-primary/10"
-                    onClick={() => {
-                      // Replace with actual Calendly popup or redirect
-                      window.open('https://calendly.com/your-calendar-link', '_blank');
-                    }}
-                  >
-                    Open Calendar
-                  </Button>
+
+              {/* Calendly Embed */}
+              <div className="bg-background/50 rounded-xl p-4 border border-border/50 flex flex-col items-center justify-center py-8">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center mb-4">
+                  <div className="w-8 h-8 bg-white rounded-md"></div>
                 </div>
+                <p className="text-muted-foreground mb-4 text-center">
+                </p>
+                <Button
+                  variant="outline"
+                  className="border-primary text-primary hover:bg-primary/10"
+                  onClick={() =>
+                    window.open("https://calendly.com/ballamatyas5/30min", "_blank")
+                  }
+                >
+                  Open Calendar
+                </Button>
               </div>
-              
               <p className="text-xs text-muted-foreground mt-4 text-center">
-                * Replace the Calendly URL above with your actual booking link
               </p>
             </div>
           </div>

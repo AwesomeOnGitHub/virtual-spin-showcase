@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 
 const Features = () => {
   const stats = [
-    { number: "500+", label: "Virtual Tours Created" },
-    { number: "98%", label: "Client Satisfaction" },
-    { number: "24h", label: "Average Delivery" },
-    { number: "50+", label: "Cities Covered" }
+    { number: "In 72h", label: "Photos are taken" },
+    { number: "In 48h", label: "Uploaded to Google Maps" },
+    { number: "In 7 Days", label: "Custom Website is Built" },
+    { number: "Available", label: "In all of Europe" }
   ];
 
   const benefits = [
@@ -29,7 +29,7 @@ const Features = () => {
   ];
 
   return (
-    <section id="features" className="section-padding">
+    <section id="services" className="section-padding pb-16 bg-gradient-to-b from-background to-muted/20">
       <div className="container-width">
         {/* Stats Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
@@ -83,33 +83,6 @@ const Features = () => {
                 See the difference immersive technology makes
               </p>
             </div>
-          </div>
-        </div>
-
-        {/* CTA Section */}
-        <div className="glass-card rounded-2xl p-8 md:p-12 text-center pulse-glow">
-          <h3 className="text-2xl md:text-3xl font-bold mb-4 hero-gradient-text">
-            Ready to Get Started?
-          </h3>
-          <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-            Join hundreds of businesses already using VirtualSpin to showcase their spaces
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-3"
-              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Get Your Quote
-            </Button>
-            <Button 
-              variant="outline"
-              className="border-primary text-primary hover:bg-primary/10 px-8 py-3"
-              onClick={() => {
-                window.open('https://calendly.com/your-calendar-link', '_blank');
-              }}
-            >
-              Schedule Demo
-            </Button>
           </div>
         </div>
       </div>
