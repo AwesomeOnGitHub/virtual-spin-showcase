@@ -129,7 +129,7 @@ const Contact = () => {
           </div>
 
           {/* Calendly Module */}
-          <div className="glass-card rounded-2xl p-8 flex flex-col justify-between h-full">
+          <div id="message" className="glass-card rounded-2xl p-8 flex flex-col justify-between h-full">
             <div className="flex-1">
               <h3 className="text-2xl font-bold mb-4 text-foreground">
                 Schedule a Call with Calendly

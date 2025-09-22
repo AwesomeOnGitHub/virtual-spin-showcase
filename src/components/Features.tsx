@@ -15,7 +15,7 @@ const Features = () => {
       description: "Virtual tours increase time spent on your website by up to 300%"
     },
     {
-      title: "Boost Conversions", 
+      title: "Boost Conversions",
       description: "Properties with virtual tours receive 87% more views than those without"
     },
     {
@@ -53,7 +53,7 @@ const Features = () => {
               <br />
               <span className="hero-gradient-text">Immersive Experiences</span>
             </h2>
-            
+
             <div className="space-y-6">
               {benefits.map((benefit, index) => (
                 <div key={index} className="flex items-start space-x-4">
@@ -68,12 +68,12 @@ const Features = () => {
               ))}
             </div>
           </div>
-          
+
           <div className="relative">
             <div className="rounded-2xl overflow-hidden hover-lift">
-              <img 
-                src={beforeAfterImage} 
-                alt="Before and After Virtual Tour Comparison" 
+              <img
+                src={beforeAfterImage}
+                alt="Before and After Virtual Tour Comparison"
                 className="w-full h-auto rounded-2xl"
               />
             </div>
@@ -82,6 +82,13 @@ const Features = () => {
               <p className="text-white font-medium text-center">
                 See the difference immersive technology makes
               </p>
+            </div>
+            <div className="rounded-2xl overflow-hidden hover-lift">
+              <img
+                src={beforeAfterImage}
+                alt="Before and After Virtual Tour Comparison"
+                className="w-full h-auto rounded-2xl"
+              />
             </div>
           </div>
         </div>
