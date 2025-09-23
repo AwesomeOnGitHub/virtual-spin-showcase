@@ -5,7 +5,7 @@ const panoramicImage = '3d.jpg';
 
 const Hero = () => {
   return (
-    <section className="flex flex-col justify-start items-center min-h-screen text-center overflow-hidden pt-10 md:pt-16 lg:pt-24 px-4">
+    <section className="flex flex-col justify-start items-center mb-20 text-center overflow-hidden pt-10 md:pt-4 lg:pt-10 px-4">
       <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
         <span className="hero-gradient-text">Virtual Tours & Web Design</span>
         <br />
@@ -25,7 +25,7 @@ const Hero = () => {
           className="border-none"
           title="3DVista Virtual Tour"
         />
-      </div>  
+      </div>
     </section>
 
   )

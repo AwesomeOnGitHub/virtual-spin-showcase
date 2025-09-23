@@ -17,7 +17,7 @@ const Index = () => {
       </main>
 
       {/* Footer */}
-      <footer className="section-padding bg-muted/10 border-t border-border/50">
+      <footer className="section-padding pt-8 bg-muted/10 border-t border-border/50">
         <div className="container-width">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
@@ -56,7 +56,7 @@ const Index = () => {
             <div>
               <h4 className="font-semibold mb-4 text-foreground">Contact</h4>
               <ul className="space-y-3 text-muted-foreground">
-                <li>info@virtualspin.com</li>
+                <li>info@virtualspin.co</li>
                 <li>Free Consultation</li>
                 <li>Response Within 24h</li>
               </ul>
