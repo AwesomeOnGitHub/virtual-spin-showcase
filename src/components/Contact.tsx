@@ -149,7 +149,7 @@ const Contact = () => {
                   variant="outline"
                   className="border-primary text-primary hover:bg-primary/10"
                   onClick={() =>
-                    window.open("https://calendly.com/ballamatyas5/30min", "_blank")
+                    window.open("https://calendly.com/virtualspin-info/30min", "_blank")
                   }
                 >
                   Open Calendar
