@@ -41,7 +41,7 @@ const Contact = () => {
   };
 
   return (
-  <section className="w-full rounded-xl md:ml-[-200px] border p-3 flex justify-center items-center text-center">
+  <section className="w-full rounded-xl p-3 flex justify-center items-center text-center">
     <div className="w-full max-w-4xl">
       <CalendlyCard />
     </div>
