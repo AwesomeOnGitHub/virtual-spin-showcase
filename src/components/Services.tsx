@@ -1,4 +1,4 @@
-import equipmentImage from "@/assets/equipment-showcase.jpg";
+import equipmentImage from "@/assets/insta360.jpg";
 
 const Services = () => {
   const services = [
@@ -73,7 +73,9 @@ const Services = () => {
             >
               We use the latest 360° cameras and technology to deliver crystal clear, professional results every time.
             </p>
-            <div className="relative rounded-2xl overflow-hidden max-w-4xl mx-auto">
+
+            {/* Image wrapper */}
+            <div className="relative rounded-2xl overflow-hidden mx-auto w-full max-w-xs md:max-w-sm lg:max-w-md">
               <img
                 src={equipmentImage}
                 alt="Professional 360° Camera Equipment"
@@ -86,5 +88,4 @@ const Services = () => {
     </section >
   );
 };
-
 export default Services;
