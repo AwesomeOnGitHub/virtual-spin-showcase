@@ -17,7 +17,7 @@ const Navigation = () => {
             className="bg-primary text-primary-foreground hover:bg-primary/90 pulse-glow"
             onClick={() =>
               document
-                .getElementById("message")
+                .getElementById("contact")
                 ?.scrollIntoView({ behavior: "smooth" })
             }
           >
