@@ -17,7 +17,7 @@ const Hero = () => {
       </h1>
 
       <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl">
-        Give Your Business a Captivating Virtual Appearance Utilizing our Virtual Tours and Web Design Services</p>
+        {t("hero.stepinsideyourbusiness")}</p>
 
       <div className="w-full md:w-[70%] h-[50vh] md:h-[60vh]">
         <iframe
