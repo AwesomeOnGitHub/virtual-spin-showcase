@@ -7,8 +7,12 @@ import logo from "@/assets/logo.png";
 import mapicon from "@/assets/mapicon.png";
 import virtualicon from "@/assets/virtualicon.png";
 import www from "@/assets/www.png";
+import { useTranslation } from "react-i18next";
 
 const Index = () => {
+  
+  const { t } = useTranslation();
+  
   return (
     <div className="smooth-scroll">
       <Navigation />
@@ -37,14 +41,14 @@ const Index = () => {
                 <span className="text-xl font-bold">VirtualSpin</span>
               </div>
               <p className="text-muted-foreground mb-4">
-                Giving your Business The Best Virtual Appearance
+                {t("index.giving")}
               </p>
               <div className="flex space-x-4">
                 <a
                   href="#services"
                   className="w-10 h-10 glass-card rounded-full flex items-center justify-center hover-lift"
                 >
-                  <img src={mapicon} alt="Map Icon" className="w-10 h-10 object-contain" />
+                  <img src={mapicon} alt="Map Icon" className="w-8 h-8 object-contain" />
                 </a>
                 <a
                   href="#services"
@@ -63,26 +67,26 @@ const Index = () => {
 
             {/* Services Links */}
             <div>
-              <h4 className="font-semibold mb-4 text-foreground">Services</h4>
+              <h4 className="font-semibold mb-4 text-foreground">{t("index.services")}</h4>
               <ul className="space-y-3 text-muted-foreground">
                 <li>
                   <a  className="hover:text-primary transition-colors">
-                    360° Virtual Tours
+                    {t("index.virtualtour")}
                   </a>
                 </li>
                 <li>
                   <a  className="hover:text-primary transition-colors">
-                    Google Maps Integration
+                    {t("index.google")}
                   </a>
                 </li>
                 <li>
                   <a  className="hover:text-primary transition-colors">
-                    Website Integration
+                    {t("index.website")}
                   </a>
                 </li>
                 <li>
                   <a  className="hover:text-primary transition-colors">
-                    Website Design
+                    {t("index.custom")}
                   </a>
                 </li>
               </ul>
@@ -90,21 +94,21 @@ const Index = () => {
 
             {/* Contact Links */}
             <div>
-              <h4 className="font-semibold mb-4 text-foreground">Contact</h4>
+              <h4 className="font-semibold mb-4 text-foreground">{t("index.contact")}</h4>
               <ul className="space-y-3 text-muted-foreground">
                 <li>
                   <a  className="hover:text-primary transition-colors">
-                    info@virtualspin.co
+                    {t("index.info@virtualspin")}
                   </a>
                 </li>
                 <li>
                   <a  className="hover:text-primary transition-colors">
-                    Free Consultation
+                    {t("index.free")}
                   </a>
                 </li>
                 <li>
                   <a className="hover:text-primary transition-colors">
-                    Response Within 24h
+                    {t("index.response")}
                   </a>
                 </li>
               </ul>
@@ -114,7 +118,7 @@ const Index = () => {
           {/* Footer Bottom */}
           <div className="border-t border-border/50 pt-8 text-center text-muted-foreground">
             <p>
-              &copy; 2025 VirtualSpin. All rights reserved. Transforming spaces into experiences.
+              &copy; {t("index.2025")}
             </p>
           </div>
         </div>

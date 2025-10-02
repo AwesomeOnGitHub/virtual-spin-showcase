@@ -28,10 +28,10 @@ const Services = () => {
       <div className="container-width">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            <span className="hero-gradient-text">Professional Services</span>
+            <span className="hero-gradient-text">{t("services.professional")}</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            {t("services.tailored.service")}
+            {t("services.tailored")}
           </p>
         </div>
 
@@ -69,13 +69,13 @@ const Services = () => {
               className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-yellow-400 to-red-500 bg-clip-text text-transparent"
               style={{ marginTop: '-20px' }}
             >
-              Professional Grade Equipment
+              {t("services.equipment")}
             </h3>
             <p
               className="text-gray-200/80 text-xl md:text-2xl max-w-lg mx-auto"
               style={{ marginBottom: '60px' }}
             >
-              We use the latest 360° cameras and technology to deliver crystal clear, professional results every time.
+              {t("services.weusethelatest")}
             </p>
 
             {/* Image wrapper */}
