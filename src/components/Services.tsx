@@ -1,6 +1,10 @@
 import equipmentImage from "@/assets/insta360.jpg";
+import { useTranslation } from "react-i18next";
 
 const Services = () => {
+
+  const { t } = useTranslation();
+
   const services = [
     {
       title: "Basic 360° Maps Package",
@@ -27,7 +31,7 @@ const Services = () => {
             <span className="hero-gradient-text">Professional Services</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Receive a professional virtual presence tailored to your business
+            {t("services.tailored.service")}
           </p>
         </div>
 

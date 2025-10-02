@@ -1,13 +1,17 @@
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-360-tour.jpg";
+import { useTranslation } from "react-i18next";
 
 const panoramicImage = '3d.jpg';
 
 const Hero = () => {
+
+  const { t } = useTranslation();
+
   return (
     <section className="flex flex-col justify-start items-center mb-20 text-center overflow-hidden pt-10 md:pt-4 lg:pt-10 px-4">
       <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-        <span className="hero-gradient-text">Virtual Tours & Web Design</span>
+        <span className="hero-gradient-text">{t("hero.main")}</span>
         <br />
         <span className="hero-gradient-text"></span>
       </h1>
