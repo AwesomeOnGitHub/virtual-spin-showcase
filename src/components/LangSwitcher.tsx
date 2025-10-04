@@ -64,6 +64,14 @@ export function LangSwitcher() {
           />
           Español
         </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => changeLanguage("it")}>
+          <img
+            src="https://flagcdn.com/w20/fr.png"
+            alt="Français"
+            className="mr-2 h-4 w-6"
+          />
+          Français
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

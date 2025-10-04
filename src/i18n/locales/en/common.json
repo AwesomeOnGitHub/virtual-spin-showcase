@@ -16,6 +16,23 @@
   "index.info@virtualspin": "info@virtualspin.co",
   "index.free": "Free Consultation",
   "index.response": "Response Within 24h",
-  "index.2025": "2025 VirtualSpin. All rights reserved. Transforming spaces into experiences."
-
-} 
+  "index.2025": "2025 VirtualSpin. All rights reserved. Transforming spaces into experiences.",
+  "service.1.title": "360° Google Maps Package",
+  "service.2.title": "Vitual Tour Package",
+  "service.3.title": "Premium Package",
+  "service.1.description": "Professional 360° Photos For Google Maps and Website",
+  "service.2.description": "Professional Virtual Tour Custom Tailored to Your Business for Website and Google Maps",
+  "service.3.description": "Premium Virtual Tour Including All Extra Features",
+  "service.1.feature1": "Panorama Recordings for a Better Look",
+  "service.1.feature2": "Google Certified",
+  "service.1.feature3": "Better Rankings on Google and Google maps ",
+  "service.1.feature4": "More Clicks->More Customers",
+  "service.2.feature1": "87% More Views",
+  "service.2.feature2": "500% More Browsing Time on Your Website",
+  "service.2.feature3": "Top Rankings on Google and Google Maps",
+  "service.2.feature4": "Personal consultation and Planning",
+  "service.3.feature1": "Custom Tour With Header, Music, Floorplan, 3D Model View",
+  "service.3.feature2": "Custom Branding, Video, Links for all Social Media Platforms",
+  "service.3.feature3": "Social Media Optimizing Package Included for Free",
+  "service.3.feature4": "Unlimited Recordings, 3D Art"
+}

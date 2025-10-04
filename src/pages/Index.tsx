@@ -1,7 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
-import Features from "@/components/Features";
 import Contact from "@/components/Contact";
 import logo from "@/assets/logo.png";
 import mapicon from "@/assets/mapicon.png";
@@ -24,7 +23,6 @@ const Index = () => {
           <Services />
         </section>
 
-        <Features />
         <Contact />
       </main>
 

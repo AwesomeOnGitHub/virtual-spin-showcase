@@ -7,20 +7,33 @@ const Services = () => {
 
   const services = [
     {
-      title: "Basic 360° Maps Package",
-      description: "Professional Virtual Recording of Your Business Uploaded to Google Maps",
-      features: ["Google Certified", "Better Rankings", "Higher Visibility", "More Customers"]
+      title: "service.1.title",
+      description: "service.1.description",
+      features: [
+        "service.1.feature1",
+        "service.1.feature2",
+        "service.1.feature3",
+        "service.1.feature4"]
+    },
+
+    {
+      title: "service.2.title",
+      description: "service.2.description",
+      features: [
+        "service.2.feature1",
+        "service.2.feature2",
+        "service.2.feature3",
+        "service.2.feature4"]
     },
     {
-      title: "Virtual Tour",
-      description: "Professional Virtual Tour Custom Tailored to Your Business for Website and Google Maps",
-      features: ["87% More Views", "300% More Time Spent on Website", "Much Higher Rankings", "Google Certified"]
+      title: "service.3.title",
+      description: "service.3.description",
+      features: [
+        "service.3.feature1",
+        "service.3.feature2",
+        "service.3.feature3",
+        "service.3.feature4"]
     },
-    {
-      title: "Website Service",
-      description: "Virtual Tour Integration, Complete Website Redesign or Upgrade",
-      features: ["Custom Embedding Virtual Tour With all Functions", "Complete Redesign or Upgrade of Website: Fonts, Modules, Logo, Copy, Translation", "Booking Software Integration", "Contact Form Integration"]
-    }
   ];
 
   return (
@@ -48,14 +61,14 @@ const Services = () => {
                 <div className="w-6 h-6 bg-white rounded-md"></div>
               </div>
 
-              <h3 className="text-2xl font-bold mb-4 text-foreground">{service.title}</h3>
-              <p className="text-muted-foreground mb-6 leading-relaxed">{service.description}</p>
+              <h3 className="text-2xl font-bold mb-4 text-foreground">{t(service.title)}</h3>
+              <p className="text-muted-foreground mb-6 leading-relaxed">{t(service.description)}</p>
 
               <ul className="space-y-3">
                 {service.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-center text-sm">
                     <div className="w-2 h-2 bg-primary rounded-full mr-3"></div>
-                    <span className="text-muted-foreground">{feature}</span>
+                    <span className="text-muted-foreground">{t(feature)}</span>
                   </li>
                 ))}
               </ul>
