@@ -8,6 +8,9 @@ import hu from "./locales/hu/common.json";
 import de from "./locales/de/common.json";
 import it from "./locales/it/common.json";
 import es from "./locales/es/common.json";
+import fr from "./locales/fr/common.json";
+import ru from "./locales/ru/common.json";
+import nl from "./locales/nl/common.json";
 
 i18n
   .use(ICU)                // remove if you don't want ICU formatting
@@ -19,10 +22,13 @@ i18n
       hu: { common: hu },
       de: { common: de },
       it: { common: it },
-      es: { common: es }
+      es: { common: es },
+      fr: { common: fr },
+      ru: { common: ru },
+      nl: { common: nl },
     },
     fallbackLng: "en",
-    supportedLngs: ["en", "hu", "de", "it", "es"],
+    supportedLngs: ["en", "hu", "de", "it", "es", "fr", "ru", "nl"],
     ns: ["common"],
     defaultNS: "common",
     interpolation: { escapeValue: false }, // React escapes by default

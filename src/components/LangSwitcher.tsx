@@ -8,6 +8,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
+const languages = [
+  { code: "hu", label: "Magyar", flag: "hu" },
+  { code: "en", label: "English", flag: "gb" },
+  { code: "de", label: "Deutsch", flag: "de" },
+  { code: "it", label: "Italiano", flag: "it" },
+  { code: "es", label: "Español", flag: "es" },
+  { code: "fr", label: "Français", flag: "fr" },
+  { code: "ru", label: "Русский", flag: "ru" },
+  { code: "nl", label: "Holland", flag: "nl" },
+];
+
 export function LangSwitcher() {
   const { i18n } = useTranslation();
 
@@ -24,54 +35,22 @@ export function LangSwitcher() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => changeLanguage("hu")}>
-          <img
-            src="https://flagcdn.com/w20/hu.png"
-            alt="Magyar"
-            className="mr-2 h-4 w-6"
-          />
-          Magyar
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => changeLanguage("en")}>
-          <img
-            src="https://flagcdn.com/w20/gb.png"
-            alt="English"
-            className="mr-2 h-4 w-6"
-          />
-          English
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => changeLanguage("de")}>
-          <img
-            src="https://flagcdn.com/w20/de.png"
-            alt="Deutsch"
-            className="mr-2 h-4 w-6"
-          />
-          Deutsch
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => changeLanguage("it")}>
-          <img
-            src="https://flagcdn.com/w20/it.png"
-            alt="Italiano"
-            className="mr-2 h-4 w-6"
-          />
-          Italiano
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => changeLanguage("es")}>
-          <img
-            src="https://flagcdn.com/w20/es.png"
-            alt="Español"
-            className="mr-2 h-4 w-6"
-          />
-          Español
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => changeLanguage("it")}>
-          <img
-            src="https://flagcdn.com/w20/fr.png"
-            alt="Français"
-            className="mr-2 h-4 w-6"
-          />
-          Français
-        </DropdownMenuItem>
+        {languages.map((lng) => (
+          <DropdownMenuItem
+            key={lng.code}
+            onClick={() => changeLanguage(lng.code)}
+          >
+            <img
+              src={`https://flagcdn.com/w20/${lng.flag}.png`}
+              alt={lng.label}
+              className="mr-2 h-4 w-6"
+            />
+            {lng.label}
+            {i18n.language === lng.code && (
+              <span className="ml-auto text-xs text-muted-foreground">(✓)</span>
+            )}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );
