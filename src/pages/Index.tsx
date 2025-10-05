@@ -5,7 +5,6 @@ import Contact from "@/components/Contact";
 import logo from "@/assets/logo.png";
 import mapIcon from "@/assets/mapIcon.png";
 import virtualIcon from "@/assets/virtualIcon.png";
-import www from "@/assets/wwwIcon.png";
 import { useTranslation } from "react-i18next";
 
 const Index = () => {
