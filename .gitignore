@@ -25,5 +25,5 @@ dist-ssr
 *.sw?
 
 bun.lockb
-flatten_project.txt
-flatten_project.txt.debug
+flattened_project.txt
+flattened_project.txt.debug
