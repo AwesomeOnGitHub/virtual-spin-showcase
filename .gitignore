@@ -23,3 +23,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+bun.lockb
+flatten_project.txt
+flatten_project.txt.debug
