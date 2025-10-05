@@ -5,11 +5,11 @@ import drone2Image from "@/assets/drone2.jpg";
 import { useTranslation } from "react-i18next";
 
 import mapicon from "@/assets/mapicon.png";
-import virtualIcon from "@/assets/virtualIcon.png";
-import wwwIcon from "@/assets/wwwIcon.png";
-import droneIcon from "@/assets/droneIcon.png";
-import seoIcon from "@/assets/seoIcon.png";
-import premiumIcon from "@/assets/premiumIcon.png";
+import virtualicon from "@/assets/virtualicon.png";
+import wwwicon from "@/assets/wwwicon.png";
+import droneicon from "@/assets/droneicon.png";
+import seoicon from "@/assets/seoicon.png";
+import premiumicon from "@/assets/premiumicon.png";
 
 const services = [
   // Row 1
@@ -91,11 +91,11 @@ const services = [
 // Icons (switched 3 & 6 as requested)
 const serviceIcons = [
   mapicon,      // Service 1
-  virtualIcon,  // Service 2
-  premiumIcon,  // Service 3
-  droneIcon,    // Service 4
-  seoIcon,      // Service 5
-  wwwIcon,      // Service 6
+  virtualicon,  // Service 2
+  premiumicon,  // Service 3
+  droneicon,    // Service 4
+  seoicon,      // Service 5
+  wwwicon,      // Service 6
 ];
 
 const Services = () => {
