@@ -4,7 +4,7 @@ import drone2Image from "@/assets/drone2.jpg";
 
 import { useTranslation } from "react-i18next";
 
-import mapIcon from "@/assets/mapIcon.png";
+import mapicon from "@/assets/mapicon.png";
 import virtualIcon from "@/assets/virtualIcon.png";
 import wwwIcon from "@/assets/wwwIcon.png";
 import droneIcon from "@/assets/droneIcon.png";
@@ -90,7 +90,7 @@ const services = [
 
 // Icons (switched 3 & 6 as requested)
 const serviceIcons = [
-  mapIcon,      // Service 1
+  mapicon,      // Service 1
   virtualIcon,  // Service 2
   premiumIcon,  // Service 3
   droneIcon,    // Service 4
