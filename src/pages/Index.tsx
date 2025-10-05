@@ -5,6 +5,7 @@ import Contact from "@/components/Contact";
 import logo from "@/assets/logo.png";
 import mapIcon from "@/assets/mapIcon.png";
 import virtualIcon from "@/assets/virtualIcon.png";
+import wwwIcon from "@/assets/wwwIcon.png";
 import { useTranslation } from "react-i18next";
 
 const Index = () => {
@@ -57,7 +58,7 @@ const Index = () => {
                   href="#services"
                   className="w-10 h-10 glass-card rounded-full flex items-center justify-center hover-lift"
                 >
-                  <img src={www} alt="WWW Icon" className="w-8 h-8 object-contain" />
+                  <img src={wwwIcon} alt="WWW Icon" className="w-8 h-8 object-contain" />
                 </a>
               </div>
             </div>
