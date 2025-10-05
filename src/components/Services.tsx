@@ -180,7 +180,7 @@ const Services = () => {
           })}
         </div>
 
-        {/* Equipment Section with 3 Images */}
+        {/* Equipment Section with 3 images */}
         <div className="relative rounded-2xl overflow-hidden max-w-6xl mx-auto mb-8">
           <div className="p-8 md:p-12 text-center">
             <h3 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-yellow-400 to-red-500 bg-clip-text text-transparent -mt-5">
