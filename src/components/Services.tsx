@@ -7,6 +7,7 @@ const Services = () => {
   const { t } = useTranslation();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedVideoUrl, setSelectedVideoUrl] = useState("");
+  const [videoError, setVideoError] = useState(false);
 
   const services = [
     {
@@ -18,7 +19,7 @@ const Services = () => {
         "service.1.feature3",
         "service.1.feature4",
       ],
-      videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ", // Replace with actual YouTube video ID
+      videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Rick Astley - Never Gonna Give You Up
     },
     {
       title: "service.2.title",
@@ -29,7 +30,7 @@ const Services = () => {
         "service.2.feature3",
         "service.2.feature4",
       ],
-      videoUrl: "https://www.youtube.com/watch?v=nbXneZzFh8w", // Replace with actual YouTube video ID
+      videoUrl: "https://www.youtube.com/embed/nbXneZzFh8w", // Example: 360° Virtual Tour demo
     },
     {
       title: "service.3.title",
@@ -40,18 +41,25 @@ const Services = () => {
         "service.3.feature3",
         "service.3.feature4",
       ],
-      videoUrl: "https://www.youtube.com/watch?v=nbXneZzFh8w", // Replace with actual YouTube video ID
+      videoUrl: "https://www.youtube.com/embed/9bZkp7q19f0", // Example: PSY - Gangnam Style
     },
   ];
 
   const openDialog = (videoUrl: string) => {
     setSelectedVideoUrl(videoUrl);
+    setVideoError(false);
     setIsDialogOpen(true);
   };
 
   const closeDialog = () => {
     setIsDialogOpen(false);
     setSelectedVideoUrl("");
+    setVideoError(false);
+  };
+
+  const handleVideoError = () => {
+    setVideoError(true);
+    console.error("Failed to load YouTube video:", selectedVideoUrl);
   };
 
   return (
@@ -71,7 +79,7 @@ const Services = () => {
               key={index}
               className="glass-card rounded-2xl p-8 hover-lift group text-left focus:outline-none focus:ring-2 focus:ring-primary"
               onClick={() => openDialog(service.videoUrl)}
-              aria-label={`View details for ${t(service.title)}`}
+              aria-label={`View video for ${t(service.title)}`}
             >
               <div
                 className={`w-12 h-12 rounded-xl bg-gradient-to-br ${
@@ -130,17 +138,25 @@ const Services = () => {
               )}
             </DialogTitle>
           </DialogHeader>
-          <div className="relative w-full" style={{ paddingTop: "56.25%" /* 16:9 aspect ratio */ }}>
-            <iframe
-              className="absolute top-0 left-0 w-full h-full rounded-lg"
-              src={selectedVideoUrl}
-              title={`Video for ${t(
-                services.find((s) => s.videoUrl === selectedVideoUrl)?.title || "service"
-              )}`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          </div>
+          {videoError ? (
+            <div className="text-center text-destructive p-4">
+              <p>{t("video.error", { defaultValue: "Unable to load video. Please try again later." })}</p>
+            </div>
+          ) : (
+            <div className="relative w-full" style={{ paddingTop: "56.25%" /* 16:9 aspect ratio */ }}>
+              <iframe
+                className="absolute top-0 left-0 w-full h-full rounded-lg"
+                src={selectedVideoUrl}
+                title={`Video for ${t(
+                  services.find((s) => s.videoUrl === selectedVideoUrl)?.title || "service"
+                )}`}
+                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+                onError={handleVideoError}
+              />
+            </div>
+          )}
           <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
             <span className="sr-only">Close</span>
           </DialogClose>
