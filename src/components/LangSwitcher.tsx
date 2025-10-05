@@ -52,11 +52,9 @@ export function LangSwitcher() {
 
   const changeLanguage = (lng: string) => {
     let languageToSet = lng;
-
     if (lng === "be") languageToSet = "nl";
     if (lng === "mc" || lng === "lu") languageToSet = "fr";
     if (lng === "ad") languageToSet = "ca";
-
     i18n.changeLanguage(languageToSet);
   };
 
@@ -85,17 +83,18 @@ export function LangSwitcher() {
 
       <DropdownMenuContent
         align="end"
-        className="max-h-60 w-48 overflow-y-auto scrollbar-none"
+        className="w-[max-content] p-2 max-h-[18rem] overflow-y-auto scrollbar-none flex flex-col items-center"
       >
         {languages.map((lng) => (
           <DropdownMenuItem
             key={lng.code}
             onClick={() => changeLanguage(lng.code)}
+            className="flex flex-col items-center justify-center text-sm w-full"
           >
             <img
-              src={`https://flagcdn.com/w20/${lng.flag}.png`}
+              src={`https://flagcdn.com/w40/${lng.flag}.png`}
               alt={lng.label}
-              className="mr-2 h-4 w-6"
+              className="h-6 w-8 mb-1"
             />
             {lng.label}
           </DropdownMenuItem>
