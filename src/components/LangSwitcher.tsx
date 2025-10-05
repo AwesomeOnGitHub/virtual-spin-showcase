@@ -17,11 +17,16 @@ const languages = [
   { code: "ru", label: "Русский", flag: "ru" },
   { code: "nl", label: "Nederlands", flag: "nl" },
   { code: "da", label: "Dansk", flag: "dk" },
+  { code: "be", label: "Nederlands", flag: "be" }, // Belgian flag → Dutch
+  { code: "mc", label: "Français", flag: "mc" }, // Monaco → French
+  { code: "lu", label: "Français", flag: "lu" }, // Luxembourg → French
   { code: "pt", label: "Português", flag: "pt" },
-  { code: "sv", label: "Svenska", flag: "se" },
+  { code: "ad", label: "Català", flag: "ad" }, // Andorra → Catalan
   { code: "no", label: "Norsk", flag: "no" },
   { code: "fi", label: "Suomi", flag: "fi" },
+  { code: "se", label: "Svenska", flag: "se" },
   { code: "is", label: "Íslenska", flag: "is" },
+  { code: "tr", label: "Türkçe", flag: "tr" },
   { code: "cs", label: "Čeština", flag: "cz" },
   { code: "sk", label: "Slovenčina", flag: "sk" },
   { code: "pl", label: "Polski", flag: "pl" },
@@ -35,12 +40,11 @@ const languages = [
   { code: "lt", label: "Lietuvių", flag: "lt" },
   { code: "mt", label: "Malti", flag: "mt" },
   { code: "ga", label: "Gaeilge", flag: "ie" },
-  { code: "cy", label: "Cymraeg", flag: "gb-wls" }, // Welsh
-  { code: "ca", label: "Català", flag: "ad" }, // Catalan → Andorra flag
-  { code: "tr", label: "Türkçe", flag: "tr" },
+  { code: "cy", label: "Cymraeg", flag: "gb" },
+  { code: "ca", label: "Català", flag: "es" },
   { code: "mk", label: "Македонски", flag: "mk" },
-  { code: "al", label: "Shqip", flag: "al" }, // Albanian
-  { code: "ba", label: "Bosanski", flag: "ba" }, // Bosnian
+  { code: "al", label: "Shqip", flag: "al" },
+  { code: "ba", label: "Bosanski", flag: "ba" },
 ];
 
 export function LangSwitcher() {
@@ -49,15 +53,22 @@ export function LangSwitcher() {
   const changeLanguage = (lng: string) => {
     let languageToSet = lng;
 
-    if (lng === "al") languageToSet = "sq"; // Albanian
-    if (lng === "ba") languageToSet = "bs"; // Bosnian
+    if (lng === "be") languageToSet = "nl";
+    if (lng === "mc" || lng === "lu") languageToSet = "fr";
+    if (lng === "ad") languageToSet = "ca";
 
     i18n.changeLanguage(languageToSet);
   };
 
-  const currentLang = i18n.language?.split("-")[0]; // normalize
-  const currentFlag =
-    languages.find((l) => l.code === currentLang)?.flag || "gb"; // fallback
+  const currentLang = (() => {
+    let lng = i18n.language?.split("-")[0];
+    if (lng === "nl" && i18n.language === "be") return "be";
+    if (lng === "fr" && (i18n.language === "mc" || i18n.language === "lu")) return i18n.language;
+    if (lng === "ca" && i18n.language === "ad") return "ad";
+    return lng;
+  })();
+
+  const currentFlag = languages.find((l) => l.code === currentLang)?.flag || "gb";
 
   return (
     <DropdownMenu>
@@ -71,7 +82,11 @@ export function LangSwitcher() {
           />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
+
+      <DropdownMenuContent
+        align="end"
+        className="max-h-60 w-48 overflow-y-auto scrollbar-none"
+      >
         {languages.map((lng) => (
           <DropdownMenuItem
             key={lng.code}

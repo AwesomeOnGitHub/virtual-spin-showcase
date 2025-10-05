@@ -95,7 +95,7 @@ i18n
       lookupLocalStorage: "i18nextLng"
     },
     react: { useSuspense: true },
-    load: "languageOnly" // Maps e.g. "pt-PT" -> "pt"
+    load: "languageOnly" // Maps e.g. "pt-PT" -> "pt"    
   });
 
 export default i18n;
