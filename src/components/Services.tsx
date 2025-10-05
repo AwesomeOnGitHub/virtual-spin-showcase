@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from "@/components/ui/dialog";
 import equipmentImage from "@/assets/insta360.jpg";
@@ -8,6 +8,11 @@ const Services = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedVideoUrl, setSelectedVideoUrl] = useState("");
   const [videoError, setVideoError] = useState(false);
+
+  // Check if running on localhost for testing
+  const isLocalhost = useEffect(() => {
+    return window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+  }, []);
 
   const services = [
     {
@@ -61,6 +66,23 @@ const Services = () => {
     setVideoError(true);
     console.error("Failed to load YouTube video:", selectedVideoUrl);
   };
+
+  // Add YouTube iframe API script for better loading control
+  useEffect(() => {
+    if (isDialogOpen && selectedVideoUrl && !videoError) {
+      // Load YouTube Iframe API if not already loaded
+      if (!window.YT) {
+        const tag = document.createElement("script");
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName("script")[0];
+        firstScriptTag.parentNode?.insertBefore(tag, firstScriptTag);
+        
+        window.onYouTubeIframeAPIReady = () => {
+          console.log("YouTube Iframe API ready");
+        };
+      }
+    }
+  }, [isDialogOpen, selectedVideoUrl, videoError]);
 
   return (
     <section id="services" className="section-padding bg-gradient-to-b from-background to-muted/20">
@@ -146,7 +168,7 @@ const Services = () => {
             <div className="relative w-full" style={{ paddingTop: "56.25%" /* 16:9 aspect ratio */ }}>
               <iframe
                 className="absolute top-0 left-0 w-full h-full rounded-lg"
-                src={selectedVideoUrl}
+                src={`${selectedVideoUrl}?rel=0&modestbranding=1&playsinline=1&enablejsapi=1`}
                 title={`Video for ${t(
                   services.find((s) => s.videoUrl === selectedVideoUrl)?.title || "service"
                 )}`}
@@ -154,6 +176,7 @@ const Services = () => {
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
                 onError={handleVideoError}
+                onLoad={() => console.log("YouTube video loaded successfully:", selectedVideoUrl)}
               />
             </div>
           )}
