@@ -118,9 +118,7 @@ const Services = () => {
       <div className="container-width">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-6">
-            <span className="hero-gradient-text">{t("services.professional")}</span>
-          </h2>
+          <h2 className="text-3xl md:text-5xl font-bold mb-6" style={{ textDecoration: 'none' }}>{t("services.professional")}</h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             {t("services.tailored")}
           </p>
@@ -130,10 +128,17 @@ const Services = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {services.map((service, index) => {
             const icon = serviceIcons[index];
+            // Pair delays: 0s for 1&4, 2s for 2&5, 4s for 3&6
+            const pairDelay = index % 3 === 0 ? '0s' : index % 3 === 1 ? '2s' : '4s';
             return (
               <div
                 key={index}
-                className="glass-card rounded-2xl p-8 hover-lift group flex flex-col cursor-pointer"
+                className="glass-card rounded-2xl p-8 flex flex-col cursor-pointer"
+                style={{
+                  animation: 'wave-float 8s ease-in-out infinite',
+                  animationDelay: pairDelay,
+                  boxShadow: 'var(--shadow-orange)'
+                }}
                 onClick={() => handleCardClick(service.youtubeLink)}
               >
                 <div className="flex items-center mb-6">

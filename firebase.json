@@ -1,6 +1,7 @@
 {
   "hosting": {
-    "public": "dist",
+    "site": "virtual-23943",
+    "public": "public",
     "rewrites": [
       {
         "source": "/:lang/**",
