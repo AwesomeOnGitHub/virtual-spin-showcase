@@ -1,9 +1,9 @@
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import equipmentImage from "@/assets/insta360.jpg";
 import droneImage from "@/assets/drone.jpg";
 import drone2Image from "@/assets/drone2.jpg";
-
-import { useTranslation } from "react-i18next";
-
 import mapIcon from "@/assets/mapIcon.png";
 import virtualIcon from "@/assets/virtualIcon.png";
 import wwwIcon from "@/assets/wwwIcon.png";
@@ -12,7 +12,6 @@ import seoIcon from "@/assets/seoIcon.png";
 import premiumIcon from "@/assets/premiumIcon.png";
 
 const services = [
-  // Row 1
   {
     title: "service.1.title",
     description: "service.1.description",
@@ -24,6 +23,7 @@ const services = [
     ],
     currentPrice: "249 €",
     oldPrice: "400 €",
+    youtubeLink: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
     title: "service.2.title",
@@ -36,6 +36,7 @@ const services = [
     ],
     currentPrice: "899 €",
     oldPrice: "1200 €",
+    youtubeLink: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
     title: "service.3.title",
@@ -48,10 +49,10 @@ const services = [
     ],
     currentPrice: null,
     oldPrice: null,
+    youtubeLink: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
-  // Row 2
   {
-    title: "service.4.title", // Drone Package
+    title: "service.4.title",
     description: "service.4.description",
     features: [
       "service.4.feature1",
@@ -61,9 +62,10 @@ const services = [
     ],
     currentPrice: "600 €",
     oldPrice: null,
+    youtubeLink: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
-    title: "service.5.title", // Social Media Optimizing Package
+    title: "service.5.title",
     description: "service.5.description",
     features: [
       "service.5.feature1",
@@ -73,9 +75,10 @@ const services = [
     ],
     currentPrice: "400 €",
     oldPrice: null,
+    youtubeLink: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
-    title: "service.6.title", // Website Design Package
+    title: "service.6.title",
     description: "service.6.description",
     features: [
       "service.6.feature1",
@@ -85,26 +88,35 @@ const services = [
     ],
     currentPrice: null,
     oldPrice: null,
+    youtubeLink: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
 ];
 
-// Icons (switched 3 & 6 as requested)
 const serviceIcons = [
-  mapIcon,      // Service 1
-  virtualIcon,  // Service 2
-  premiumIcon,  // Service 3
-  droneIcon,    // Service 4
-  seoIcon,      // Service 5
-  wwwIcon,      // Service 6
+  mapIcon,
+  virtualIcon,
+  premiumIcon,
+  droneIcon,
+  seoIcon,
+  wwwIcon,
 ];
 
 const Services = () => {
   const { t } = useTranslation();
+  const [selectedVideo, setSelectedVideo] = useState(null);
+
+  const handleCardClick = (youtubeLink) => {
+    setSelectedVideo(youtubeLink);
+  };
+
+  const closePopup = () => {
+    setSelectedVideo(null);
+  };
 
   return (
     <section
       id="services"
-      className="section-padding bg-gradient-to-b from-background to-muted/20"
+      className="section-padding bg-gradient-to-b from-background to-muted/20 relative"
     >
       <div className="container-width">
         {/* Header */}
@@ -124,21 +136,19 @@ const Services = () => {
             return (
               <div
                 key={index}
-                className="glass-card rounded-2xl p-8 hover-lift group flex flex-col"
+                className="glass-card rounded-2xl p-8 hover-lift group flex flex-col cursor-pointer"
+                onClick={() => handleCardClick(service.youtubeLink)}
               >
-                {/* Title row with icon */}
                 <div className="flex items-center mb-6">
                   <img
                     src={icon}
-                    alt={`${service.title} icon`}
+                    alt={`${t(service.title)} icon`}
                     className="h-10 w-10 object-contain mr-4"
                   />
                   <h3 className="text-2xl font-bold text-foreground">
                     {t(service.title)}
                   </h3>
                 </div>
-
-                {/* Price */}
                 {service.currentPrice && (
                   <div className="text-center mb-6">
                     {service.oldPrice ? (
@@ -157,13 +167,9 @@ const Services = () => {
                     )}
                   </div>
                 )}
-
-                {/* Description */}
                 <p className="text-muted-foreground mb-6 leading-relaxed">
                   {t(service.description)}
                 </p>
-
-                {/* Features */}
                 <ul className="space-y-3">
                   {service.features.map((feature, featureIndex) => (
                     <li
@@ -180,7 +186,7 @@ const Services = () => {
           })}
         </div>
 
-        {/* Equipment Section with 3 images */}
+        {/* Equipment Section */}
         <div className="relative rounded-2xl overflow-hidden max-w-6xl mx-auto mb-8">
           <div className="p-8 md:p-12 text-center">
             <h3 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-yellow-400 to-red-500 bg-clip-text text-transparent -mt-5">
@@ -189,34 +195,60 @@ const Services = () => {
             <p className="text-gray-200/80 text-xl md:text-2xl max-w-lg mx-auto mb-14">
               {t("services.weusethelatest")}
             </p>
-
-            {/* Flex row with 3 equal images */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-items-center">
-              <div className="relative rounded-2xl overflow-hidden w-full max-w-xs md:max-w-sm lg:max-w-md">
+              <div className="relative rounded-2xl overflow-hidden w-full max-w-xs md:max-w-sm aspect-[4/3]">
                 <img
                   src={droneImage}
                   alt="Drone Photography Equipment"
-                  className="w-full h-auto object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
-              <div className="relative rounded-2xl overflow-hidden w-full max-w-xs md:max-w-sm lg:max-w-md">
+              <div className="relative rounded-2xl overflow-hidden w-full max-w-xs md:max-w-sm aspect-[4/3]">
                 <img
                   src={equipmentImage}
                   alt="Professional 360° Camera Equipment"
-                  className="w-full h-auto object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
-              <div className="relative rounded-2xl overflow-hidden w-full max-w-xs md:max-w-sm lg:max-w-md">
+              <div className="relative rounded-2xl overflow-hidden w-full max-w-xs md:max-w-sm aspect-[4/3]">
                 <img
                   src={drone2Image}
                   alt="Additional Drone Equipment"
-                  className="w-full h-auto object-cover"
+                  className="w-full h-full object-cover"
                 />
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Popup for YouTube Video */}
+      {selectedVideo && (
+        <div
+          className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 transition-opacity duration-1000 ease-in-out"
+          style={{ opacity: selectedVideo ? 1 : 0 }}
+        >
+          <div className="relative bg-background rounded-2xl p-6 max-w-3xl w-full mx-4 shadow-lg">
+            <button
+              className="absolute top-2 right-2 text-foreground text-3xl font-bold hover:text-primary"
+              onClick={closePopup}
+              aria-label="Close popup"
+            >
+              &times;
+            </button>
+            <div className="relative w-full aspect-video">
+              <iframe
+                className="absolute top-0 left-0 w-full h-full rounded-lg"
+                src={`${selectedVideo}?autoplay=1`}
+                title="Service Video"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
