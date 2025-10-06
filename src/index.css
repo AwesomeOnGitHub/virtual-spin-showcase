@@ -3,59 +3,37 @@
 @tailwind components;
 @tailwind utilities;
 
-/* VirtualSpin Design System - Apple-inspired with black background and vibrant warm colors */
-
 @layer base {
   :root {
     --background: 0 0% 6%;
     --foreground: 0 0% 98%;
-
     --card: 0 0% 10%;
     --card-foreground: 0 0% 98%;
-
     --popover: 0 0% 8%;
     --popover-foreground: 0 0% 98%;
-
-    /* VirtualSpin Brand Colors */
     --primary: 16 100% 60%;
-    /* Vibrant Orange */
     --primary-foreground: 0 0% 0%;
-
     --secondary: 0 78% 62%;
-    /* Vibrant Red */
     --secondary-foreground: 0 0% 98%;
-
     --tertiary: 45 100% 65%;
-    /* Vibrant Yellow */
     --tertiary-foreground: 0 0% 0%;
-
     --muted: 0 0% 15%;
     --muted-foreground: 0 0% 70%;
-
     --accent: 16 100% 60%;
     --accent-foreground: 0 0% 0%;
-
     --destructive: 0 78% 62%;
     --destructive-foreground: 0 0% 98%;
-
     --border: 0 0% 20%;
     --input: 0 0% 15%;
     --ring: 16 100% 60%;
-
     --radius: 12px;
-
-    /* VirtualSpin Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)));
     --gradient-warm: linear-gradient(90deg, hsl(var(--tertiary)), hsl(var(--primary)), hsl(var(--secondary)));
     --gradient-subtle: linear-gradient(180deg, hsl(0 0% 8%), hsl(0 0% 6%));
     --gradient-hero: radial-gradient(ellipse at center, hsl(16 100% 60% / 0.1) 0%, transparent 70%);
-
-    /* VirtualSpin Shadows */
     --shadow-glow: 0 0 40px hsl(var(--primary) / 0.3);
     --shadow-warm: 0 20px 40px -12px hsl(var(--primary) / 0.4);
     --shadow-card: 0 10px 30px -10px hsl(0 0% 0% / 0.3);
-
-    /* Animations */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-spring: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
@@ -64,19 +42,62 @@
     --background: 0 0% 6%;
     --foreground: 0 0% 98%;
   }
+
+  [dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+  }
+
+  [dir="rtl"] .text-left {
+    text-align: right;
+  }
+
+  [dir="rtl"] .text-right {
+    text-align: left;
+  }
+
+  [dir="rtl"] .flex-row {
+    flex-direction: row-reverse;
+  }
+
+  [dir="rtl"] .justify-start {
+    justify-content: flex-end;
+  }
+
+  [dir="rtl"] .justify-end {
+    justify-content: flex-start;
+  }
+
+  [dir="rtl"] .mr-4 {
+    margin-right: 0;
+    margin-left: 1rem;
+  }
+
+  [dir="rtl"] .ml-4 {
+    margin-left: 0;
+    margin-right: 1rem;
+  }
+
+  [dir="rtl"] .pr-4 {
+    padding-right: 0;
+    padding-left: 1rem;
+  }
+
+  [dir="rtl"] .pl-4 {
+    padding-left: 0;
+    padding-right: 1rem;
+  }
 }
 
 @layer base {
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground antialiased;
     background-image: var(--gradient-hero);
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
-
   h1,
   h2,
   h3,
@@ -88,13 +109,10 @@
 }
 
 @layer components {
-
-  /* Apple-inspired scroll behavior */
   .smooth-scroll {
     scroll-behavior: smooth;
   }
 
-  /* VirtualSpin Hero Text */
   .hero-gradient-text {
     background: var(--gradient-warm);
     -webkit-background-clip: text;
@@ -102,7 +120,6 @@
     background-clip: text;
   }
 
-  /* Glassmorphism Cards */
   .glass-card {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
@@ -110,7 +127,6 @@
     box-shadow: var(--shadow-card);
   }
 
-  /* Hover Effects */
   .hover-lift {
     transition: var(--transition-smooth);
   }
@@ -120,18 +136,15 @@
     box-shadow: var(--shadow-warm);
   }
 
-  /* VirtualSpin Animations */
   .float-animation {
     animation: float 6s ease-in-out infinite;
   }
 
   @keyframes float {
-
     0%,
     100% {
       transform: translateY(0px);
     }
-
     50% {
       transform: translateY(-20px);
     }
@@ -145,13 +158,11 @@
     from {
       box-shadow: var(--shadow-glow);
     }
-
     to {
       box-shadow: 0 0 60px hsl(var(--primary) / 0.5);
     }
   }
 
-  /* Section Spacing */
   .section-padding {
     @apply py-1 px-6 md:px-8 lg:px-12;
   }
@@ -160,8 +171,6 @@
     @apply max-w-7xl mx-auto;
   }
 
-
-  /* at the end of the file */
   .scrollbar-none::-webkit-scrollbar {
     display: none;
   }
@@ -170,5 +179,4 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-
 }

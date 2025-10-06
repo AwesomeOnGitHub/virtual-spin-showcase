@@ -8,9 +8,10 @@ import {
 import { Button } from "@/components/ui/button";
 
 const languages = [
+  { code: "ar", label: "العربية", flag: "sa", country: "Saudi Arabia" },
   { code: "sq", label: "Shqip", flag: "al", country: "Albania" },
   { code: "ad", label: "Català", flag: "ad", country: "Andorra" },
-  { code: "be", label: "Belgium", flag: "be", country: "Belgium" }, 
+  { code: "be", label: "Belgium", flag: "be", country: "Belgium" },
   { code: "bs", label: "Bosanski", flag: "ba", country: "Bosnia" },
   { code: "bg", label: "Български", flag: "bg", country: "Bulgaria" },
   { code: "hr", label: "Hrvatski", flag: "hr", country: "Croatia" },
@@ -43,10 +44,9 @@ const languages = [
   { code: "sl", label: "Slovenščina", flag: "si", country: "Slovenia" },
   { code: "es", label: "Español", flag: "es", country: "Spain" },
   { code: "sv", label: "Svenska", flag: "se", country: "Sweden" },
-  { code: "tr", label: "Türkçe", flag: "tr", country: "Turkey" },
+  { code: "tr", label: "Türkçe", flag: "tr", country: "Turkey" }
 ];
 
-// Sort by English country names
 const sortedLanguages = [...languages].sort((a, b) =>
   a.country.localeCompare(b.country)
 );
@@ -59,13 +59,11 @@ export function LangSwitcher() {
     if (selectedCode === "be") languageToSet = "nl";
     if (selectedCode === "mc" || selectedCode === "lu") languageToSet = "fr";
     if (selectedCode === "ad") languageToSet = "ca";
-
     try {
       if (typeof window !== "undefined") {
         localStorage.setItem("selectedCountry", selectedCode);
       }
     } catch {}
-
     i18n.changeLanguage(languageToSet);
   };
 
@@ -99,7 +97,6 @@ export function LangSwitcher() {
           />
         </Button>
       </DropdownMenuTrigger>
-
       <DropdownMenuContent
         align="end"
         className="w-44 p-2 max-h-[18rem] overflow-y-auto scrollbar-none flex flex-col items-center"
