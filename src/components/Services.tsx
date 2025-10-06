@@ -4,7 +4,7 @@ import drone2Image from "@/assets/drone2.jpg";
 
 import { useTranslation } from "react-i18next";
 
-import mapicon from "@/assets/mapIcon.png";
+import mapicon from "@/assets/mapicon.png";
 import virtualIcon from "@/assets/virtualIcon.png";
 import wwwIcon from "@/assets/wwwIcon.png";
 import droneIcon from "@/assets/droneIcon.png";
