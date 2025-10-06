@@ -114,10 +114,7 @@ const Services = () => {
   };
 
   return (
-    <section
-      id="services"
-      className="section-padding bg-gradient-to-b from-background to-muted/20 relative"
-    >
+    <section id="services" className="section-padding relative">
       <div className="container-width">
         {/* Header */}
         <div className="text-center mb-16">

@@ -2,14 +2,11 @@ import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-360-tour.jpg";
 import { useTranslation } from "react-i18next";
 
-const panoramicImage = '3d.jpg';
-
 const Hero = () => {
-
   const { t } = useTranslation();
 
   return (
-    <section className="flex flex-col justify-start items-center mb-20 text-center overflow-hidden pt-10 md:pt-4 lg:pt-10 px-4">
+    <section className="flex flex-col justify-start items-center mb-16 text-center overflow-hidden pt-8 md:pt-6 lg:pt-12 px-4">
       <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
         <span className="hero-gradient-text">{t("hero.main")}</span>
         <br />
@@ -17,7 +14,8 @@ const Hero = () => {
       </h1>
 
       <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl">
-        {t("hero.stepinsideyourbusiness")}</p>
+        {t("hero.stepinsideyourbusiness")}
+      </p>
 
       <div className="w-full md:w-[70%] h-[50vh] md:h-[60vh]">
         <iframe
@@ -31,10 +29,7 @@ const Hero = () => {
         />
       </div>
     </section>
-
-  )
-}
-
-
+  );
+};
 
 export default Hero;

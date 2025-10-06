@@ -15,15 +15,12 @@ import CalendlyCard from "./CalendlyCard";
 //   });
 //   const { toast } = useToast();
 
-//   const handleSubmit = (e: React.FormEvent) => {
+//   const handleSubmit = (e) => {
 //     e.preventDefault();
-//     // For now, just show a success message
-//     // To make this actually work, you'll need Supabase integration
 //     toast({
 //       title: "Message Sent!",
 //       description: "We'll get back to you within 24 hours.",
 //     });
-
 //     setFormData({
 //       name: '',
 //       email: '',
@@ -33,17 +30,18 @@ import CalendlyCard from "./CalendlyCard";
 //     });
 //   };
 
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+//   const handleChange = (e) => {
 //     setFormData({
 //       ...formData,
 //       [e.target.name]: e.target.value
 //     });
 //   };
+
 const Contact = () => {
   return (
     <section
       id="contact"
-      className="w-full rounded-xl p-3 flex justify-center items-center text-center scroll-mt-24"
+      className="w-full rounded-xl p-3 flex justify-center items-center text-center scroll-mt-24 relative"
     >
       <div className="w-full max-w-4xl">
         <CalendlyCard />
