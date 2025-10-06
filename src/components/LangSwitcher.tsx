@@ -44,7 +44,7 @@ const languages = [
   { code: "sl", label: "Slovenščina", flag: "si", country: "Slovenia" },
   { code: "es", label: "Español", flag: "es", country: "Spain" },
   { code: "sv", label: "Svenska", flag: "se", country: "Sweden" },
-  { code: "tr", label: "Türkçe", flag: "tr", country: "Turkey" }
+  { code: "tr", label: "Türkçe", flag: "tr", country: "Turkey" },
 ];
 
 const sortedLanguages = [...languages].sort((a, b) =>
@@ -54,7 +54,7 @@ const sortedLanguages = [...languages].sort((a, b) =>
 export function LangSwitcher() {
   const { i18n } = useTranslation();
 
-  const changeLanguage = (selectedCode: string) => {
+  const changeLanguage = (selectedCode) => {
     let languageToSet = selectedCode;
     if (selectedCode === "be") languageToSet = "nl";
     if (selectedCode === "mc" || selectedCode === "lu") languageToSet = "fr";
@@ -67,7 +67,10 @@ export function LangSwitcher() {
     i18n.changeLanguage(languageToSet);
   };
 
-  const getTriggerFlag = (): string => {
+  const getTriggerFlag = () => {
+    const lang = (i18n.language || "en").split("-")[0].toLowerCase();
+    const byLang = languages.find((l) => l.code === lang);
+    if (byLang) return byLang.flag;
     try {
       if (typeof window !== "undefined") {
         const stored = localStorage.getItem("selectedCountry");
@@ -77,10 +80,7 @@ export function LangSwitcher() {
         }
       }
     } catch {}
-    const lang = (i18n.language || "en").split("-")[0];
-    const byLang = languages.find((l) => l.code === lang);
-    if (byLang) return byLang.flag;
-    return "gb";
+    return "gb"; // Fallback to English flag
   };
 
   const triggerFlag = getTriggerFlag();
