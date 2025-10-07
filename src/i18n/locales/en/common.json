@@ -52,5 +52,11 @@
   "service.6.feature1": "Building you the perfect Website completely from scratch",
   "service.6.feature2": "Adding all your Wishes to your existing Website",
   "service.6.feature3": "Branding, Logo, Colors, Design elements, Copy, Visuals",
-  "service.6.feature4": "Custom Contact From, Custom Booking Form, Translation to any languages, anything you could possibly think of"
+  "service.6.feature4": "Custom Contact From, Custom Booking Form, Translation to any languages, anything you could possibly think of",
+  "service.1.currentPrice": "249 €",
+  "service.1.oldPrice": "400 €",
+  "service.2.currentPrice": "899 €",
+  "service.2.oldPrice": "1200 €",
+  "service.4.currentPrice": "600 €",
+  "service.5.currentPrice": "400 €"
 }

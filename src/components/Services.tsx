@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import equipmentImage from "@/assets/insta360.jpg";
@@ -21,8 +20,8 @@ const services = [
       "service.1.feature3",
       "service.1.feature4",
     ],
-    currentPrice: "249 €",
-    oldPrice: "400 €",
+    currentPrice: "service.1.currentPrice",
+    oldPrice: "service.1.oldPrice",
     youtubeLink: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
@@ -34,8 +33,8 @@ const services = [
       "service.2.feature3",
       "service.2.feature4",
     ],
-    currentPrice: "899 €",
-    oldPrice: "1200 €",
+    currentPrice: "service.2.currentPrice",
+    oldPrice: "service.2.oldPrice",
     youtubeLink: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
@@ -60,7 +59,7 @@ const services = [
       "service.4.feature3",
       "service.4.feature4",
     ],
-    currentPrice: "600 €",
+    currentPrice: "service.4.currentPrice",
     oldPrice: null,
     youtubeLink: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
@@ -73,7 +72,7 @@ const services = [
       "service.5.feature3",
       "service.5.feature4",
     ],
-    currentPrice: "400 €",
+    currentPrice: "service.5.currentPrice",
     oldPrice: null,
     youtubeLink: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
@@ -103,15 +102,6 @@ const serviceIcons = [
 
 const Services = () => {
   const { t } = useTranslation();
-  const [selectedVideo, setSelectedVideo] = useState(null);
-
-  const handleCardClick = (youtubeLink) => {
-    setSelectedVideo(youtubeLink);
-  };
-
-  const closePopup = () => {
-    setSelectedVideo(null);
-  };
 
   return (
     <section id="services" className="section-padding relative">
@@ -133,13 +123,12 @@ const Services = () => {
             return (
               <div
                 key={index}
-                className="glass-card rounded-2xl p-8 flex flex-col cursor-pointer"
+                className="glass-card rounded-2xl p-8 flex flex-col"
                 style={{
                   animation: 'wave-float 8s ease-in-out infinite',
                   animationDelay: pairDelay,
                   boxShadow: 'var(--shadow-orange)'
                 }}
-                onClick={() => handleCardClick(service.youtubeLink)}
               >
                 <div className="flex items-center mb-6">
                   <img
@@ -156,15 +145,15 @@ const Services = () => {
                     {service.oldPrice ? (
                       <div className="flex justify-center items-center gap-2">
                         <span className="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-red-500 bg-clip-text text-transparent">
-                          {service.currentPrice}
+                          {t(service.currentPrice)}
                         </span>
                         <span className="line-through text-gray-400">
-                          {service.oldPrice}
+                          {t(service.oldPrice)}
                         </span>
                       </div>
                     ) : (
                       <span className="text-2xl font-bold bg-gradient-to-r from-yellow-400 to-red-500 bg-clip-text text-transparent">
-                        {service.currentPrice}
+                        {t(service.currentPrice)}
                       </span>
                     )}
                   </div>
@@ -223,25 +212,6 @@ const Services = () => {
           </div>
         </div>
       </div>
-
-      {/* Popup for Video - Now "Under Construction" */}
-      {selectedVideo && (
-        <div
-          className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 transition-opacity duration-1000 ease-in-out"
-          style={{ opacity: selectedVideo ? 1 : 0 }}
-        >
-          <div className="relative bg-background rounded-2xl p-6 max-w-3xl w-full mx-4 shadow-lg">
-            <button
-              className="absolute top-2 right-2 text-foreground text-3xl font-bold hover:text-primary"
-              onClick={closePopup}
-              aria-label="Close popup"
-            >
-              &times;
-            </button>
-            <p className="text-foreground text-center">Under Construction</p>
-          </div>
-        </div>
-      )}
     </section>
   );
 };

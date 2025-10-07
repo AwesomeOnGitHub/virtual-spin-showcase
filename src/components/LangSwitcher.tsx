@@ -88,7 +88,10 @@ export function LangSwitcher() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="p-1">
+        <Button
+          variant="default"
+          className="bg-primary text-primary-foreground hover:bg-primary/90 pulse-glow p-1 w-10 h-10 flex items-center justify-center"
+        >
           <span className="sr-only">Change language</span>
           <img
             src={`https://flagcdn.com/w20/${triggerFlag}.png`}
