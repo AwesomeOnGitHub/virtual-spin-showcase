@@ -89,8 +89,8 @@ export function LangSwitcher() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="default"
-          className="bg-primary text-primary-foreground hover:bg-primary/90 pulse-glow p-1 w-10 h-10 flex items-center justify-center"
+          variant="outline"
+          className="bg-transparent border-orange-500 hover:bg-orange-500 p-1 w-10 h-10 flex items-center justify-center"
         >
           <span className="sr-only">Change language</span>
           <img
