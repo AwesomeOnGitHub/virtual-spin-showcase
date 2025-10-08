@@ -1,169 +1,199 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
-import CalendlyCard from "./CalendlyCard"; // Assuming this is a separate component
+import * as React from "react";
 
-// Import Firebase (make sure you have firebase installed: npm install firebase or yarn add firebase)
-import { initializeApp } from "firebase/app";
+import { useForm } from "react-hook-form";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+
+import * as z from "zod";
+
+import { useTranslation } from "react-i18next";
+
+import { Button } from "@/components/ui/button";
+
+import { Input } from "@/components/ui/input";
+
+import { Textarea } from "@/components/ui/textarea";
+
+import { Label } from "@/components/ui/label";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { useState } from "react";
+
+import { toast } from "@/components/ui/use-toast";
+
 import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
 
-// Your Firebase Configuration (replace with your actual config)
-const firebaseConfig = {
-  apiKey: "AIzaSyAlRo4xOdOInR8S451-AZZvxTkJCuuzFVY",
-  authDomain: "virtual-23943.firebaseapp.com",
-  projectId: "virtual-23943",
-  storageBucket: "virtual-23943.firebasestorage.app",
-  messagingSenderId: "584050779094",
-  appId: "1:584050779094:web:e158f4246f71579e2e3a77"
-};
+import { db } from "@/lib/firebase";
 
-// Initialize Firebase (do this once, ideally outside the component or in a separate file)
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+// Define the form schema using Zod
 
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    business: '',
-    message: ''
+const formSchema = z.object({
+
+  name: z.string().min(2, { message: "contact.errors.name" }),
+
+  email: z.string().email({ message: "contact.errors.email" }),
+
+  message: z.string().min(10, { message: "contact.errors.message" }),
+
+});
+
+type FormData = z.infer<typeof formSchema>;
+
+const ContactForm = () => {
+
+  const { t } = useTranslation();
+
+  const {
+
+    register,
+
+    handleSubmit,
+
+    formState: { errors },
+
+    reset,
+
+  } = useForm<FormData>({
+
+    resolver: zodResolver(formSchema),
+
   });
-  const [isSubmitting, setIsSubmitting] = useState(false); // New state for loading indicator
-  const { toast } = useToast();
 
-  const handleSubmit = async (e) => { // Make handleSubmit async
-    e.preventDefault();
-    setIsSubmitting(true); // Set loading to true
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const onSubmit = async (data: FormData) => {
+
+    setIsSubmitting(true);
 
     try {
-      // Add a new document with a generated ID to the "contact_messages" collection
+
+      // Add a new document to the "contact_messages" collection
+
       await addDoc(collection(db, "contact_messages"), {
-        ...formData, // Spread all form data
-        timestamp: serverTimestamp() // Firebase server timestamp
+
+        ...data,
+
+        timestamp: serverTimestamp(),
+
       });
 
       toast({
-        title: "Message Sent!",
-        description: "We'll get back to you within 24 hours.",
-        //variant: "success", // Assuming your toast system has a 'success' variant
+
+        title: t("contact.success.title"),
+
+        description: t("contact.success.description"),
+
       });
 
-      // Clear the form only on successful submission
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        business: '',
-        message: ''
-      });
+      // Reset the form using react-hook-form's reset
+
+      reset();
 
     } catch (error) {
+
       console.error("Error adding document: ", error);
+
       toast({
-        title: "Submission Failed",
-        description: `There was an error sending your message: ${error.message}`,
-        //variant: "destructive", // Assuming a 'destructive' variant for errors
+
+        title: t("contact.error.title"),
+
+        description: t("contact.error.description"),
+
       });
+
     } finally {
-      setIsSubmitting(false); // Reset loading state
+
+      setIsSubmitting(false);
+
     }
+
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      [name]: value
-    }));
+  // Helper function to safely translate error messages
+
+  const translateError = (message?: string) => {
+
+    return message ? t(message) : t("contact.errors.generic");
+
   };
 
   return (
-    <section
-      id="contact"
-      className="w-full rounded-xl p-3 flex justify-center items-center text-center scroll-mt-24 relative"
-    >
-      <div className="w-full max-w-4xl flex flex-col items-center">
-        {/* Contact Form */}
-       <div className="mb-8 p-6 bg-grey shadow-md rounded-lg w-full md:w-3/4 lg:w-1/2">
-        <h2 className="text-2xl font-bold mb-6">Send us a message!</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="name" className="sr-only">Name</label>
+    <Card className="glass-card hover-lift mx-auto max-w-lg">
+      <CardHeader>
+        <CardTitle className="hero-gradient-text">{t("contact.title")}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          <div className="space-y-2">
+            <Label htmlFor="name">{t("contact.form.name.label")}</Label>
             <Input
-              type="text"
+
               id="name"
-              name="name"
-              placeholder="Your Name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              disabled={isSubmitting}
+
+              placeholder={t("contact.form.name.placeholder")}
+
+              {...register("name")}
+
+              className={errors.name ? "border-destructive" : ""}
+
             />
+
+            {errors.name && (
+              <p className="text-sm text-destructive">{translateError(errors.name.message)}</p>
+
+            )}
           </div>
-          <div>
-            <label htmlFor="email" className="sr-only">Email</label>
+          <div className="space-y-2">
+            <Label htmlFor="email">{t("contact.form.email.label")}</Label>
             <Input
-              type="email"
+
               id="email"
-              name="email"
-              placeholder="Your Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              disabled={isSubmitting}
+
+              type="email"
+
+              placeholder={t("contact.form.email.placeholder")}
+
+              {...register("email")}
+
+              className={errors.email ? "border-destructive" : ""}
+
             />
+
+            {errors.email && (
+              <p className="text-sm text-destructive">{translateError(errors.email.message)}</p>
+
+            )}
           </div>
-          <div>
-            <label htmlFor="phone" className="sr-only">Phone (Optional)</label>
-            <Input
-              type="tel" // Use tel for phone numbers
-              id="phone"
-              name="phone"
-              placeholder="Your Phone (Optional)"
-              value={formData.phone}
-              onChange={handleChange}
-              disabled={isSubmitting}
-            />
-          </div>
-          <div>
-            <label htmlFor="business" className="sr-only">Business (Optional)</label>
-            <Input
-              type="text"
-              id="business"
-              name="business"
-              placeholder="Your Business (Optional)"
-              value={formData.business}
-              onChange={handleChange}
-              disabled={isSubmitting}
-            />
-          </div>
-          <div>
-            <label htmlFor="message" className="sr-only">Message</label>
+          <div className="space-y-2">
+            <Label htmlFor="message">{t("contact.form.message.label")}</Label>
             <Textarea
+
               id="message"
-              name="message"
-              placeholder="Your Message..."
-              value={formData.message}
-              onChange={handleChange}
-              required
-              rows={5}
-              disabled={isSubmitting}
+
+              placeholder={t("contact.form.message.placeholder")}
+
+              {...register("message")}
+
+              className={errors.message ? "border-destructive" : ""}
+
             />
+
+            {errors.message && (
+              <p className="text-sm text-destructive">{translateError(errors.message.message)}</p>
+
+            )}
           </div>
           <Button type="submit" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? "Sending..." : "Send Message"}
+
+            {isSubmitting ? t("contact.form.submitting") : t("contact.form.submit")}
           </Button>
         </form>
-      </div>
+      </CardContent>
+    </Card>
 
-      {/* Calendly Card - Rendered below the contact form */}
-      <CalendlyCard />
-    </div>
-    </section >
   );
+
 };
 
-export default Contact;
+export default ContactForm;
