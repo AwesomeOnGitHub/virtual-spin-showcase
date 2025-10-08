@@ -1,169 +1,157 @@
+import * as React from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
-import { useToast } from "@/hooks/use-toast";
-import CalendlyCard from "./CalendlyCard"; // Assuming this is a separate component
-
-// Import Firebase (make sure you have firebase installed: npm install firebase or yarn add firebase)
-import { initializeApp } from "firebase/app";
+import { toast } from "@/components/ui/use-toast";
 import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
-// Your Firebase Configuration (replace with your actual config)
-const firebaseConfig = {
-  apiKey: "AIzaSyAlRo4xOdOInR8S451-AZZvxTkJCuuzFVY",
-  authDomain: "virtual-23943.firebaseapp.com",
-  projectId: "virtual-23943",
-  storageBucket: "virtual-23943.firebasestorage.app",
-  messagingSenderId: "584050779094",
-  appId: "1:584050779094:web:e158f4246f71579e2e3a77"
-};
+// Define the form schema using Zod
+const formSchema = z.object({
+  name: z.string().min(2, { message: "contact.errors.name" }),
+  email: z.string().email({ message: "contact.errors.email" }),
+  message: z.string().min(10, { message: "contact.errors.message" }),
+});
 
-// Initialize Firebase (do this once, ideally outside the component or in a separate file)
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+type FormData = z.infer<typeof formSchema>;
 
-const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    business: '',
-    message: ''
+const ContactForm = () => {
+  const { t } = useTranslation();
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
   });
-  const [isSubmitting, setIsSubmitting] = useState(false); // New state for loading indicator
-  const { toast } = useToast();
 
-  const handleSubmit = async (e) => { // Make handleSubmit async
-    e.preventDefault();
-    setIsSubmitting(true); // Set loading to true
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
     try {
-      // Add a new document with a generated ID to the "contact_messages" collection
-      await addDoc(collection(db, "contact_messages"), {
-        ...formData, // Spread all form data
-        timestamp: serverTimestamp() // Firebase server timestamp
+      console.log("Submitting form data to Firestore:", data);
+      const docRef = await addDoc(collection(db, "contact_messages"), {
+        ...data,
+        timestamp: serverTimestamp(),
       });
-
+      console.log("Document written with ID:", docRef.id);
       toast({
-        title: "Message Sent!",
-        description: "We'll get back to you within 24 hours.",
-        //variant: "success", // Assuming your toast system has a 'success' variant
+        title: t("contact.success.title"),
+        description: t("contact.success.description"),
       });
-
-      // Clear the form only on successful submission
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        business: '',
-        message: ''
+      form.reset();
+    } catch (error: any) {
+      console.error("Firestore write error:", {
+        message: error.message,
+        code: error.code,
+        stack: error.stack,
+        details: error.details,
       });
-
-    } catch (error) {
-      console.error("Error adding document: ", error);
+      let errorMessage = t("contact.error.description");
+      if (error.code === "permission-denied") {
+        errorMessage = t("contact.errors.permission_denied");
+      } else if (error.code === "unavailable") {
+        errorMessage = t("contact.errors.network");
+      } else if (error.code === "invalid-argument") {
+        errorMessage = t("contact.errors.invalid_argument");
+      }
       toast({
-        title: "Submission Failed",
-        description: `There was an error sending your message: ${error.message}`,
-        //variant: "destructive", // Assuming a 'destructive' variant for errors
+        title: t("contact.error.title"),
+        description: errorMessage,
+        variant: "destructive",
       });
     } finally {
-      setIsSubmitting(false); // Reset loading state
+      setIsSubmitting(false);
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevFormData => ({
-      ...prevFormData,
-      [name]: value
-    }));
-  };
-
   return (
-    <section
-      id="contact"
-      className="w-full rounded-xl p-3 flex justify-center items-center text-center scroll-mt-24 relative"
-    >
-      <div className="w-full max-w-4xl flex flex-col items-center">
-        {/* Contact Form */}
-       <div className="mb-8 p-6 bg-grey shadow-md rounded-lg w-full md:w-3/4 lg:w-1/2">
-        <h2 className="text-2xl font-bold mb-6">Send us a message!</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="name" className="sr-only">Name</label>
-            <Input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Your Name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              disabled={isSubmitting}
-            />
-          </div>
-          <div>
-            <label htmlFor="email" className="sr-only">Email</label>
-            <Input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Your Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              disabled={isSubmitting}
-            />
-          </div>
-          <div>
-            <label htmlFor="phone" className="sr-only">Phone (Optional)</label>
-            <Input
-              type="tel" // Use tel for phone numbers
-              id="phone"
-              name="phone"
-              placeholder="Your Phone (Optional)"
-              value={formData.phone}
-              onChange={handleChange}
-              disabled={isSubmitting}
-            />
-          </div>
-          <div>
-            <label htmlFor="business" className="sr-only">Business (Optional)</label>
-            <Input
-              type="text"
-              id="business"
-              name="business"
-              placeholder="Your Business (Optional)"
-              value={formData.business}
-              onChange={handleChange}
-              disabled={isSubmitting}
-            />
-          </div>
-          <div>
-            <label htmlFor="message" className="sr-only">Message</label>
-            <Textarea
-              id="message"
-              name="message"
-              placeholder="Your Message..."
-              value={formData.message}
-              onChange={handleChange}
-              required
-              rows={5}
-              disabled={isSubmitting}
-            />
-          </div>
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
-            {isSubmitting ? "Sending..." : "Send Message"}
-          </Button>
-        </form>
-      </div>
-
-      {/* Calendly Card - Rendered below the contact form */}
-      <CalendlyCard />
-    </div>
-    </section >
+    <section id="contact" className="scroll-mt-24">
+      <Card className="glass-card hover-lift mx-auto max-w-lg">
+        <CardHeader>
+          <CardTitle className="hero-gradient-text">{t("contact.title")}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("contact.form.name.label")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder={t("contact.form.name.placeholder")}
+                        {...field}
+                        aria-describedby={form.formState.errors.name ? "name-error" : undefined}
+                      />
+                    </FormControl>
+                    <FormMessage id="name-error" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("contact.form.email.label")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="email"
+                        placeholder={t("contact.form.email.placeholder")}
+                        {...field}
+                        aria-describedby={form.formState.errors.email ? "email-error" : undefined}
+                      />
+                    </FormControl>
+                    <FormMessage id="email-error" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="message"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("contact.form.message.label")}</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder={t("contact.form.message.placeholder")}
+                        {...field}
+                        aria-describedby={form.formState.errors.message ? "message-error" : undefined}
+                      />
+                    </FormControl>
+                    <FormMessage id="message-error" />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-full" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {t("contact.form.submitting")}
+                  </>
+                ) : (
+                  t("contact.form.submit")
+                )}
+              </Button>
+            </form>
+          </Form>
+        </CardContent>
+      </Card>
+    </section>
   );
 };
 
-export default Contact;
+export default ContactForm;
