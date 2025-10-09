@@ -7,26 +7,55 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
-const {setGlobalOptions} = require("firebase-functions");
-const {onRequest} = require("firebase-functions/https");
+const { setGlobalOptions } = require("firebase-functions");
+const { onRequest } = require("firebase-functions/https");
 const logger = require("firebase-functions/logger");
 
-// For cost control, you can set the maximum number of containers that can be
-// running at the same time. This helps mitigate the impact of unexpected
-// traffic spikes by instead downgrading performance. This limit is a
-// per-function limit. You can override the limit for each function using the
-// `maxInstances` option in the function's options, e.g.
-// `onRequest({ maxInstances: 5 }, (req, res) => { ... })`.
-// NOTE: setGlobalOptions does not apply to functions using the v1 API. V1
-// functions should each use functions.runWith({ maxInstances: 10 }) instead.
-// In the v1 API, each function can only serve one request per container, so
-// this will be the maximum concurrent request count.
-setGlobalOptions({ maxInstances: 10 });
+const functions = require("firebase-functions");
+const admin = require("firebase-admin");
 
-// Create and deploy your first functions
-// https://firebase.google.com/docs/functions/get-started
+// Initialize Firebase Admin SDK
+// This allows Cloud Functions to interact with your Firebase project with admin privileges
+admin.initializeApp();
 
-// exports.helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+// Using SendGrid (Recommended for production)
+const sgMail = require('@sendgrid/mail');
+const sendgridApiKey = functions.config().sendgrid?.key; // Get from Firebase config (see Step 4)
+sgMail.setApiKey(sendgridApiKey);
+
+// --- Cloud Function triggered on new Firestore document ---
+
+exports.sendContactEmail = functions.firestore
+    .document("contact_messages/{docId}") // Listen for new documents in 'contact_messages'
+    .onCreate(async (snap, context) => { // Triggered when a new document is created
+        const newMessage = snap.data(); // Get the data from the new document
+
+        const mailOptions = {
+            from: 'Your Website Contact Form <noreply@yourdomain.com>', // Sender address
+            to: 'your-receiving-email@example.com', // Your email to receive notifications
+            subject: `New Contact Message from ${newMessage.name}`, // Subject line
+            html: `
+        <p>You received a new message from your contact form:</p>
+        <p><strong>Name:</strong> ${newMessage.name}</p>
+        <p><strong>Email:</strong> ${newMessage.email}</p>
+        ${newMessage.phone ? `<p><strong>Phone:</strong> ${newMessage.phone}</p>` : ''}
+        ${newMessage.business ? `<p><strong>Business:</strong> ${newMessage.business}</p>` : ''}
+        <p><strong>Message:</strong></p>
+        <p>${newMessage.message}</p>
+        <p><em>Received at: ${new Date(newMessage.timestamp.toDate()).toLocaleString()}</em></p>
+      `,
+        };
+
+        try {
+
+            // Send with SendGrid
+            await sgMail.send(mailOptions);
+            console.log("Email sent with SendGrid successfully!");
+
+            return null; // Indicate successful execution
+        } catch (error) {
+            console.error("Error sending email:", error);
+            // You might want to log this to a separate collection for failures
+            return null; // Function still finished, but with an error
+        }
+    });
